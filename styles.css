@@ -1,0 +1,98 @@
+#court{
+  margin: 30px auto;
+  width: 600px;
+  height: 300px;
+  position: relative;
+  border: 4px dotted #3f3;
+}
+#court:before {
+  left: 50%;
+  content:'';
+  width: 10px;
+  height: 300px;
+  position: absolute;
+  border-left: 4px dashed #3f3;
+}
+#ball {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  display: block;
+  background :#3f3;
+  border-radius: 50%;
+  transform: translate3d(10px,0,0);
+  animation: leftright 2s infinite linear;
+}
+#horizontal {
+  animation: updown 2.3s infinite linear;
+  position: absolute;
+  width: 100%;
+  height: 20px;
+  top: 45%;
+}
+
+@keyframes twitchy { /* make player twitch like a real player  */
+  0%,
+  100%{transform: translate3d(0, 0px, 0); }
+  20% {transform: translate3d(0, -25px, 0); }
+  44% {transform: translate3d(0, 15px, 0); }
+  46% {transform: translate3d(0, -10px, 0); }
+  48% {transform: translate3d(0, 10px, 0); }
+  50% {transform: translate3d(0, 25px, 0); }
+  70% {transform: translate3d(0, 25px, 0); }
+  85% {transform: translate3d(0, -10px, 0); }
+  95% {transform: translate3d(0, 10px, 0); }
+}
+
+
+@keyframes leftright {
+  0%, 100% {transform: translate3d(10px,0,0)}
+  50% {transform: translate3d(570px,0px,0)}
+}
+
+@keyframes updown {
+  0%,50%,100% {transform: translate3d(0,0,0)}
+  25% {transform: translate3d(0,142px,0)}
+  75% {transform: translate3d(0,-136px,0)} }
+
+#player1, #player2 {
+  background:#3f3;
+  position:absolute;
+  width:7px;
+  height:44px;
+  margin-top:-12px;
+}
+
+
+#player1{left:4px;
+}
+
+
+#player2{
+  right:4px;
+  animation: twitchy 2.3s infinite linear;
+}
+
+#targetzone {
+  background: rgba(0,0,255,0.25);
+  position: absolute;
+  margin:0 0 0 0;
+  z-index:100;
+  width:100%;
+  height:100%;
+}
+
+#targetzone:hover{
+  animation: updown 2.3s infinite linear;
+  cursor: url(http://www.sitepoint.com/examples/css3pong/img/bat.gif), text;
+}
+#targetzone:hover + #horizontal{
+  animation: updown  2.3s infinite linear;
+}
+#targetzone:hover + #horizontal #player2{
+  animation: twitchy 1.9s infinite linear;
+  animation-delay:0.95s;
+}
+#targetzone:hover + #horizontal #ball{
+  animation: leftright 1.9s infinite linear;
+}
