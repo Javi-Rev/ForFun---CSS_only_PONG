@@ -4,6 +4,7 @@
   height: 300px;
   position: relative;
   border: 4px dotted #3f3;
+  cursor: url(http://www.sitepoint.com/examples/css3pong/img/bat.gif), text;
 }
 #court:before {
   left: 50%;
@@ -26,6 +27,7 @@
 #horizontal {
   animation: updown 2.3s infinite linear;
   position: absolute;
+  outline: 4px solid blue;
   width: 100%;
   height: 20px;
   top: 45%;
@@ -53,7 +55,7 @@
 @keyframes updown {
   0%,50%,100% {transform: translate3d(0,0,0)}
   25% {transform: translate3d(0,142px,0)}
-  75% {transform: translate3d(0,-136px,0)} }
+  75% {transform: translate3d(0,-142px,0)} }
 
 #player1, #player2 {
   background:#3f3;
@@ -70,21 +72,22 @@
 
 #player2{
   right:4px;
-  animation: twitchy 2.3s infinite linear;
+  /* animation: twitchy 2.3s infinite linear; */
 }
 
 #targetzone {
   background: rgba(0,0,255,0.25);
   position: absolute;
-  margin:0 0 0 0;
+  margin:-50% 0 0 -50%;
   z-index:100;
-  width:100%;
-  height:100%;
+  width:800;
+  height:800;
+  animation: preparetoserve 2s 1 linear;
 }
 
 #targetzone:hover{
-  animation: updown 2.3s infinite linear;
-  cursor: url(http://www.sitepoint.com/examples/css3pong/img/bat.gif), text;
+  animation: updown 2.3s infinite linear,
+  targetzone 1.9s infinite linear;
 }
 #targetzone:hover + #horizontal{
   animation: updown  2.3s infinite linear;
@@ -95,4 +98,34 @@
 }
 #targetzone:hover + #horizontal #ball{
   animation: leftright 1.9s infinite linear;
+}
+
+@keyframes targetzone {
+  /* ball is in general play - targetzone is big */
+  0%, 96% {
+    width: 800px;
+    height: 600px;
+    margin: -50% 0 0 -50%;
+  }
+
+  /* ball is approaching player 1's baseline - targetzone shrinks*/
+  96.1%, 100% {
+    width: 150px;
+    height: 100px;
+    top: 0;
+    left: 0;
+    margin: 10% 0 0 -50px;
+  }
+}
+
+@keyframes preparetoserve {
+  /* Give targetzone no height so trigger is hidden */
+  0%, 90% {
+    height: 0px;
+  }
+
+  /* after a short time, resize the targetzone, ready to serve*/
+  90.1%, 100% {
+    height: 100px;
+   }
 }
